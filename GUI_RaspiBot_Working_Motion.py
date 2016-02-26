@@ -4,6 +4,7 @@ from time import sleep
 from tkinter import *
 
 root = Tk()
+root.wm_title("RaspiBot")
 motor1 = Motor(17)
 motor2 = Motor(24)
 motor3 = Motor(23)
