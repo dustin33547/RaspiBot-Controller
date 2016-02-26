@@ -1,45 +1,45 @@
-from gpiozero import LED
+from gpiozero import Motor
 import picamera
 from time import sleep
 from tkinter import *
 
 root = Tk()
-led1 = LED(17)
-led2 = LED(24)
-led3 = LED(23)
-led4 = LED(27)
+motor1 = Motor(17)
+motor2 = Motor(24)
+motor3 = Motor(23)
+motor4 = Motor(27)
 i = 0
 camera = picamera.PiCamera()
 myFile = "/home/pi/BotPics/raspiCam.jpg"
 
 
 def turn_right():
-    led1.on()
-    led2.on()
+    motor1.on()
+    motor2.on()
     sleep(.18)
-    led1.off()
-    led2.off()
+    motor1.off()
+    motor2.off()
 
 def turn_left():
-    led3.on()
-    led4.on()
+    motor3.on()
+    motor4.on()
     sleep(.18)
-    led3.off()
-    led4.off()
+    motor3.off()
+    motor4.off()
 
 def move_forward():
-    led1.on()
-    led3.on()
+    motor1.on()
+    motor3.on()
     sleep(1)
-    led1.off()
-    led3.off()
+    motor1.off()
+    motor3.off()
 
 def move_back():
-    led2.on()
-    led4.on()
+    motor2.on()
+    motor4.on()
     sleep(1)
-    led2.off()
-    led4.off()
+    motor2.off()
+    motor4.off()
 
 def snap_pic():
     camera.capture(myFile)
