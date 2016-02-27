@@ -5,42 +5,40 @@ from tkinter import *
 
 root = Tk()
 root.wm_title("RaspiBot")
-motor1 = Motor(17)
-motor2 = Motor(24)
-motor3 = Motor(23)
-motor4 = Motor(27)
+motor1 = Motor(forward=17, reverse=23)
+motor2 = Motor(forward=24, reverse=27)
 i = 0
 camera = picamera.PiCamera()
 myFile = "/home/pi/BotPics/raspiCam.jpg"
 
 
 def turn_right():
-    motor1.on()
-    motor2.on()
+    motor1.forward()
+    motor2.reverse()
     sleep(.18)
     motor1.off()
     motor2.off()
 
 def turn_left():
-    motor3.on()
-    motor4.on()
+    motor1.reverse()
+    motor2.forward()
     sleep(.18)
-    motor3.off()
-    motor4.off()
+    motor1.off()
+    motor2.off()
 
 def move_forward():
-    motor1.on()
-    motor3.on()
+    motor1.forward()
+    motor2.forward()
     sleep(1)
     motor1.off()
-    motor3.off()
+    motor2.off()
 
 def move_back():
-    motor2.on()
-    motor4.on()
+    motor1.reverse()
+    motor2.reverse()
     sleep(1)
+    motor1.off()
     motor2.off()
-    motor4.off()
 
 def snap_pic():
     camera.capture(myFile)
