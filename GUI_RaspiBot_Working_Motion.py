@@ -1,57 +1,59 @@
-from gpiozero import LED
+from gpiozero import Motor
 import picamera
 from time import sleep
 from tkinter import *
-import random
+from random import randint
 
 root = Tk()
-led1 = LED(17)
-led2 = LED(24)
-led3 = LED(23)
-led4 = LED(27)
+motor1 = Motor(17, 24)
+motor2 = Motor(23, 27)
 i = 0
 camera = picamera.PiCamera()
-myFile1 = "/home/pi/BotPics/raspiCam"
-random1 = random(1, 99999)
-myFile2 = ".jpg"
+myFile1 = "/home/pi/BotPics/pic.gif"
 
 
 def turn_right():
-    led1.on()
-    led2.on()
+    motor2.forward()
+    motor1.backward()
     sleep(.18)
-    led1.off()
-    led2.off()
+    motor1.stop()
+    motor2.stop()
 
 def turn_left():
-    led3.on()
-    led4.on()
+    motor2.backward()
+    motor1.forward()
     sleep(.18)
-    led3.off()
-    led4.off()
+    motor1.stop()
+    motor2.stop()
 
 def move_forward():
-    led1.on()
-    led3.on()
-    sleep(1)
-    led1.off()
-    led3.off()
+    motor1.forward()
+    motor2.forward()
+    sleep(.25)
+    motor1.stop()
+    motor2.stop()
 
 def move_back():
-    led2.on()
-    led4.on()
-    sleep(1)
-    led2.off()
-    led4.off()
+    motor1.backward()
+    motor2.backward()
+    sleep(.25)
+    motor1.stop()
+    motor2.stop()
 
-def snap_pic():
-    camera.capture(myFile1, random1, myFile2)
+def snap_pic(): 
+    camera.capture(myFile1)
+
+def myPic():
+    photo = PhotoImage(file="/home/pi/BotPics/pic.gif")
+    w = Label(root, image=photo)
+    w.photo = photo
+    w.grid(row=1, column=4)
 
 Label(text="Raspi Remote").grid(row=0, column=2, sticky=N)
-Button(root, text="Forward",  command=move_forward).grid(row=1, sticky=N, column=2)
-Button(root, text="Reverse", command=move_back).grid(row=3, sticky=S, column=2)
-Button(root, text="Left", command=turn_left).grid(row=2, sticky=W, column=1)
-Button(root, text="Snap", command=snap_pic).grid(row=2, column=2)
-Button(root, text="Right", command=turn_right).grid(row=2, sticky=E, column=3)
 
-
+Button(root, text="Forward",  command=move_forward).grid(row=2, column=2)
+Button(root, text="Left", command=turn_left).grid(row=3, column=1)
+Button(root, text="Snap", command=snap_pic).grid(row=3, column=2)
+Button(root, text="Right", command=turn_right).grid(row=3, column=3)
+Button(root, text="Load Pic", command=myPic).grid(row=4, column=2)
+Button(root, text="Reverse", command=move_back).grid(row=5, column=2)
