@@ -1,47 +1,51 @@
-from gpiozero import Motor
+from gpiozero import LED
 import picamera
 from time import sleep
 from tkinter import *
+import random
 
 root = Tk()
-root.wm_title("RaspiBot")
-motor1 = Motor(forward=17, reverse=23)
-motor2 = Motor(forward=24, reverse=27)
+led1 = LED(17)
+led2 = LED(24)
+led3 = LED(23)
+led4 = LED(27)
 i = 0
 camera = picamera.PiCamera()
-myFile = "/home/pi/BotPics/raspiCam.jpg"
+myFile1 = "/home/pi/BotPics/raspiCam"
+random1 = random(1, 99999)
+myFile2 = ".jpg"
 
 
 def turn_right():
-    motor1.forward()
-    motor2.reverse()
+    led1.on()
+    led2.on()
     sleep(.18)
-    motor1.off()
-    motor2.off()
+    led1.off()
+    led2.off()
 
 def turn_left():
-    motor1.reverse()
-    motor2.forward()
+    led3.on()
+    led4.on()
     sleep(.18)
-    motor1.off()
-    motor2.off()
+    led3.off()
+    led4.off()
 
 def move_forward():
-    motor1.forward()
-    motor2.forward()
+    led1.on()
+    led3.on()
     sleep(1)
-    motor1.off()
-    motor2.off()
+    led1.off()
+    led3.off()
 
 def move_back():
-    motor1.reverse()
-    motor2.reverse()
+    led2.on()
+    led4.on()
     sleep(1)
-    motor1.off()
-    motor2.off()
+    led2.off()
+    led4.off()
 
 def snap_pic():
-    camera.capture(myFile)
+    camera.capture(myFile1, random1, myFile2)
 
 Label(text="Raspi Remote").grid(row=0, column=2, sticky=N)
 Button(root, text="Forward",  command=move_forward).grid(row=1, sticky=N, column=2)
