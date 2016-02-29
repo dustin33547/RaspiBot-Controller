@@ -9,7 +9,7 @@ motor1 = Motor(17, 24)
 motor2 = Motor(23, 27)
 i = 0
 camera = picamera.PiCamera()
-myFile1 = "/home/pi/BotPics/pic.gif"
+myFile1 = "pic.gif"
 
 
 def turn_right():
@@ -44,7 +44,7 @@ def snap_pic():
     camera.capture(myFile1)
 
 def myPic():
-    photo = PhotoImage(file="/home/pi/BotPics/pic.gif")
+    photo = PhotoImage(file="pic.gif")
     w = Label(root, image=photo)
     w.photo = photo
     w.grid(row=1, column=4)
